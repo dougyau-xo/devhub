@@ -1,0 +1,45 @@
+version: v2
+  navigator:
+  name: kayako_classic
+  email: douglas.yau@crossover.com
+  repo:
+    companyName: Think3
+    productName: KAYAKOC
+    repoUrl: https://github.com/trilogy-group/kayako-SWIFT
+    repoType: Distributable artifacts
+    githubTokenSecretId: devhub-import/kayako-SWIFT/githubToken
+  buildDeps:
+    - repo:
+  build:
+    techStack: PHP
+    buildOs: Debian 9
+    runtimeVersion: php 7.2
+    buildTool:
+    preBuild:
+    buildCommand:
+  unit test:
+    utFramework: PHPUnit
+    preTest: cd trunk && composer install  --classmap-authoritative --optimize-autoloader
+    testCommand: phpunit --no-coverage -c trunk/tests/phpunit.jenkins.xml
+  integration test:
+    integrationTestFramework: NA
+    preIntegrationTest:
+    integrationTestCommand:
+  package:
+    packageTool: composer
+    packageCommand:  php scripts/package.php
+    artifactDir: scripts/files
+  deployDeps:
+  deploy:
+    serviceName: Kayako-Swift
+    deploymentCheck: ProductionHealthCheck
+    stickySessions: False
+    canUseLb: False
+    stablePersistence: False
+    fixedNetworkIdentifier: False
+    deployCommand:
+  storage:
+  ports:
+  envVars:
+  run:
+  dockerized:
