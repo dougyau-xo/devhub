@@ -6,6 +6,7 @@ repo:
   companyName: Think3
   productName: KAYAKOC
   repoUrl: https://github.com/trilogy-group/kayako-SWIFT
+  branch: single_repo
   repoType: Distributable artifacts
   githubTokenSecretId: doug-git
 buildDeps:
