@@ -12,7 +12,7 @@ repo:
 buildDeps:
   - repo:
 build:
-  techStack: PHP
+  techStack: php/7.0-cli
   buildOs: Debian 9
   runtimeVersion: php 7.2
   buildTool:
