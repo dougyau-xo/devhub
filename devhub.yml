@@ -12,7 +12,7 @@ repo:
 buildDeps:
   - repo:
 build:
-  techStack: kayako/kayako-jenkins-kc:latest
+  techStack: registry2.swarm.devfactory.com/kayako/kayako-jenkins-kcgit:latest
   buildOs: Debian 9
   runtimeVersion: php 7.2
   buildTool:
