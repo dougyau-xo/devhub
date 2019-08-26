@@ -12,7 +12,7 @@ repo:
 buildDeps:
   - repo:
 build:
-  techStack: php:7.0-cli
+  techStack: dougyau/php7:latest
   buildOs: Debian 9
   runtimeVersion: php 7.2
   buildTool:
