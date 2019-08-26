@@ -18,7 +18,7 @@ build:
   buildTool:
   preBuild:
   buildCommand:
-unit test:
+unitTest:
   utFramework: PHPUnit
   preTest: cd trunk && composer install  --classmap-authoritative --optimize-autoloader
   testCommand: phpunit --no-coverage -c trunk/tests/phpunit.jenkins.xml
