@@ -7,7 +7,7 @@ repo:
   productName: KAYAKOC
   repoUrl: https://github.com/trilogy-group/kayako-SWIFT
   repoType: Distributable artifacts
-  githubTokenSecretId: devhub-import/kayako-SWIFT/githubToken
+  githubTokenSecretId: doug-git
 buildDeps:
   - repo:
 build:
