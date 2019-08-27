@@ -20,7 +20,7 @@ build:
   buildCommand:
 unitTest:
   utFramework: PHPUnit
-  preTest: cd trunk && composer install  --classmap-authoritative --optimize-autoloader
+  preTest: bash '${env.WORKSPACE}/jenkins/setup_environment.sh' && mysql -e 'create database swift' && composer --no-progress install
   testCommand: cd trunk && bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
 integration test:
   integrationTestFramework: NA
