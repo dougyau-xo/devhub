@@ -27,7 +27,9 @@ unitTest:
     composer --no-progress install
     cd setup
     php console.setup.php Trilogy http%3A%2F%2Flocalhost%2Findex.php%3F Kayako Admin admin QAtesting123 root%40localhost
-  testCommand: cd trunk && bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
+  testCommand: |
+    cd trunk
+    php -d memory_limit=-1 bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
 integration test:
   integrationTestFramework: NA
   preIntegrationTest:
