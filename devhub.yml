@@ -21,7 +21,7 @@ build:
 unitTest:
   utFramework: PHPUnit
   preTest: cd trunk && composer install  --classmap-authoritative --optimize-autoloader
-  testCommand: bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
+  testCommand: cd trunk && bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
 integration test:
   integrationTestFramework: NA
   preIntegrationTest:
