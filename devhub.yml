@@ -20,7 +20,13 @@ build:
   buildCommand:
 unitTest:
   utFramework: PHPUnit
-  preTest: bash "${WORKSPACE}/jenkins/setup_environment.sh" && mysql -e 'create database swift' && cd trunk && composer --no-progress install
+  preTest: |
+    bash "${WORKSPACE}/jenkins/setup_environment.sh"
+    && mysql -e 'create if not exists database swift'
+    && cd trunk
+    && composer --no-progress install
+    && cd setup
+    && php console.setup.php Trilogy http%3A%2F%2Flocalhost%2Findex.php%3F Kayako Admin admin QAtesting123 root%40localhost
   testCommand: cd trunk && bin/phpunit --no-coverage -c tests/phpunit.jenkins.xml
 integration test:
   integrationTestFramework: NA
