@@ -36,7 +36,8 @@ integration test:
   integrationTestCommand:
 package:
   packageTool: composer
-  packageCommand:  php scripts/package.php
+  packageCommand: |
+    php scripts/package.php
   artifactDir: scripts/files
 deployDeps:
 deploy:
