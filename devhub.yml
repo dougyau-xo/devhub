@@ -57,12 +57,11 @@ package:
 deployDeps:
 deploy:
   type: ECS
-  ECS:
-    credentials: aws-dev
-    ECR: 180614642597.dkr.ecr.us-east-1.amazonaws.com/kc:jenkins
-    cluster: service-bench
-    service: kc-jenkins
-  serviceName: Kayako-Swift
+  docker:
+    credentials: ecr:us-east-1:aws-dev
+    image: 180614642597.dkr.ecr.us-east-1.amazonaws.com/kc:jenkins
+  cluster: service-bench
+  serviceName: kc-jenkins
   deploymentCheck: ProductionHealthCheck
   stickySessions: False
   canUseLb: False
