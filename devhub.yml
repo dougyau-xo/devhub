@@ -40,6 +40,7 @@ package:
   packageTool: composer
   packageCommand: |
     php scripts/package.php
+    cp scripts/files/fusion*gz fusion-latest.tar.gz
   artifactDir: scripts/files
   environment:
     - CI_HOME: "${WORKSPACE}/scripts"
@@ -51,14 +52,23 @@ package:
     - SWIFT_VERSION: "$(echo $(grep SWIFT_VERSION ${WORKSPACE}/trunk/__swift/swift.php | sed 's/[^0-9\\.]//g')-${BUILD_NUMBER}-$(echo ${GIT_COMMIT} | cut -c 1-7))"
     - SWIFT_BRANCH: "$(echo ${GIT_BRANCH} | sed 's|origin/||')"
     - SWIFT_HASH: "$(php -r \"echo sha1(sha1('17e235b9-5686-49dc-afa1-c9501cc2c11c').'${SWIFT_VERSION}${SWIFT_BRANCH}');\")"
+  dockerfile: jenkins/Dockerfile
 deployDeps:
 deploy:
+  type: ECS
+  ECS:
+    credentials: aws-dev
+    ECR: 180614642597.dkr.ecr.us-east-1.amazonaws.com/kc:jenkins
+    cluster: service-bench
+    service: kc-jenkins
   serviceName: Kayako-Swift
   deploymentCheck: ProductionHealthCheck
   stickySessions: False
   canUseLb: False
   stablePersistence: False
   fixedNetworkIdentifier: False
+  preDeploy: |
+    mv scripts/files/fusion*gz fusion-latest.tar.gz
   deployCommand:
 storage:
 ports:

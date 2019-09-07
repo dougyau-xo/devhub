@@ -70,14 +70,32 @@ job(config.name) {
 
     // Package
     if (config.package.packageCommand?.trim())
-	  steps {
+      steps {
         // Load the environment variables for this step
         loadEnvironment(delegate, config.package.environment)
 
         // Execute the prebuild command
         shell(config.package.packageCommand)
 
+        // Create docker image if needed
+        if (config.package.dockerfile?.trim()) {
+          docker.build("${buildTag}", "-f " + config.package.dockerfile + " .")
+        }
       }
+/*
+    if (config.deploy.type?.trim())
+      steps {
+        // Load the environment variables for this step
+        loadEnvironment(delegate, config.deploy.environment)
+        shell(config.deploy.preDeploy)
+
+        if (config.deploy.type == 'ECS') {
+          withAWS(credentials: 'aws-dev') {
+            def login = ecrLogin()
+          }
+        }
+      }
+      */
   }
 
   publishers {
