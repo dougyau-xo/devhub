@@ -60,7 +60,7 @@ deploy:
     credentials: ecr:us-east-1:aws-dev
     dockerfile: jenkins/Dockerfile
     image: kc
-    repository: 180614642597.dkr.ecr.us-east-1.amazonaws.com
+    registry: 180614642597.dkr.ecr.us-east-1.amazonaws.com
     tag: jenkins
   cluster: service-bench
   serviceName: kc-jenkins
