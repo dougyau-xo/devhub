@@ -79,7 +79,11 @@ job(config.name) {
 
         // Create docker image if needed
         if (config.package.dockerfile?.trim()) {
-          docker.build("${buildTag}", "-f " + config.package.dockerfile + " .")
+          // docker.build("${buildTag}", "-f " + config.package.dockerfile + " .")
+          dockerBuildAndPublish {
+            dockerfileDirectory(config.package.dockerfile)
+            skipPush()
+          }
         }
       }
 /*
