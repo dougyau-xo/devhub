@@ -41,6 +41,7 @@ package:
   packageCommand: |
     php scripts/package.php
     cp scripts/files/fusion*gz fusion-latest.tar.gz
+    mkdir custom_apps
   artifactDir: scripts/files
   environment:
     - CI_HOME: "${WORKSPACE}/scripts"
