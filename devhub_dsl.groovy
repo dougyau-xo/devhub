@@ -27,6 +27,17 @@ job(config.name) {
   // The agent label to use
   label(config.build.techStack)
 
+  // AWS credentials
+  wrappers {
+  credentialsBinding {
+    amazonWebServicesCredentialsBinding {
+      accessKeyVariable("AWS_ACCESS_KEY_ID")
+      secretKeyVariable("AWS_SECRET_ACCESS_KEY")
+      credentialsId("aws-dev")
+    }
+  }
+  }
+
   // Git repo to checkout
   scm {
     git {
@@ -77,29 +88,33 @@ job(config.name) {
         // Execute the prebuild command
         shell(config.package.packageCommand)
 
-        // Create docker image if needed
-        if (config.package.dockerfile?.trim()) {
-          // docker.build("${buildTag}", "-f " + config.package.dockerfile + " .")
-          dockerBuildAndPublish {
-            dockerfileDirectory(config.package.dockerfile)
-            skipPush()
-          }
-        }
       }
-/*
+
     if (config.deploy.type?.trim())
       steps {
         // Load the environment variables for this step
         loadEnvironment(delegate, config.deploy.environment)
         shell(config.deploy.preDeploy)
 
-        if (config.deploy.type == 'ECS') {
-          withAWS(credentials: 'aws-dev') {
-            def login = ecrLogin()
+		if (config.deploy.docker.image?.trim()) {
+          dockerBuildAndPublish() {
+            dockerfileDirectory(config.deploy.docker.dockerfile)
+            repositoryName(config.deploy.docker.image)
+            tag(config.deploy.docker.tag)
+            registryCredentials(config.deploy.docker.credentials)
+            dockerRegistryURL("https://" + config.deploy.docker.registry + "/")
+            forcePull(false)
+            forceTag(false)
           }
         }
+
+        if (config.deploy.type == 'ECS') {
+          shell("aws ecs update-service " +
+                	" --service " + config.deploy.serviceName +
+                	" --cluster " + config.deploy.cluster +
+                	" --region us-east-1 --force-new-deployment")
+        }
       }
-      */
   }
 
   publishers {
